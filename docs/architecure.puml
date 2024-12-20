@@ -1,0 +1,80 @@
+@startuml
+
+package "Frontend (Nuxt)" {
+    class LoginComponent {
+        + username: string
+        + password: string
+        + login(): void
+    }
+
+    class RegisterComponent {
+        + username: string
+        + password: string
+        + confirmPassword: string
+        + register(): void
+    }
+
+    class PortfolioComponent {
+        + addStock(stock: Stock): void
+        + removeStock(stockId: string): void
+        + viewPortfolio(): Stock[]
+    }
+
+    class Stock {
+        + id: string
+        + name: string
+        + symbol: string
+        + price: number
+    }
+}
+
+package "Backend (Flask)" {
+    class AuthController {
+        + login(username: string, password: string): Token
+        + register(username: string, password: string): void
+    }
+
+    class PortfolioController {
+        + getPortfolio(userId: string): Portfolio
+        + addStock(userId: string, stock: Stock): void
+        + removeStock(userId: string, stockId: string): void
+    }
+
+    class Token {
+        + token: string
+        + expiration: Date
+    }
+
+    class User {
+        + id: string
+        + username: string
+        + passwordHash: string
+    }
+
+    class Portfolio {
+        + userId: string
+        + stocks: Stock[]
+    }
+}
+
+package "Database (MongoDB)" {
+    class UserCollection {
+        + _id: ObjectId
+        + username: string
+        + passwordHash: string
+    }
+
+    class PortfolioCollection {
+        + _id: ObjectId
+        + userId: ObjectId
+        + stocks: Stock[]
+    }
+}
+
+"LoginComponent" --> "AuthController": uses
+"RegisterComponent" --> "AuthController": uses
+"PortfolioComponent" --> "PortfolioController": uses
+"AuthController" --> "UserCollection": accesses
+"PortfolioController" --> "PortfolioCollection": accesses
+
+@enduml
