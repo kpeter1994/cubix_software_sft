@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3001:3000" # Nuxt alapértelmezett port
+      - "3001:3000"
     environment:
       - BACKEND_URL=http://backend:5000
       - CHOKIDAR_USEPOLLING=true
@@ -23,7 +21,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "5000:5000" # Flask alapértelmezett port
+      - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/portfolio
     depends_on:
