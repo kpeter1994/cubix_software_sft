@@ -6,9 +6,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" # Nuxt alapértelmezett port
+      - "3001:3000" # Nuxt alapértelmezett port
     environment:
       - BACKEND_URL=http://backend:5000
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
     networks:
