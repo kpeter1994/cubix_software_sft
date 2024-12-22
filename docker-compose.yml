@@ -25,7 +25,7 @@ services:
     ports:
       - "5000:5000" # Flask alapértelmezett port
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      - MONGO_URI=mongodb://mongo:27017/portfolio
     depends_on:
       - mongo
     networks:
