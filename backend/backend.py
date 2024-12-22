@@ -12,6 +12,10 @@ client = MongoClient(mongo_uri)
 db = client.get_database()
 users_collection = db["users"]
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "Welcome to the API!"}), 200
+
 @app.route("/login", methods=["POST"])
 def login():
     try:
