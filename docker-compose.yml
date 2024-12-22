@@ -15,7 +15,6 @@ services:
       - backend
     networks:
       - app-network
-
   backend:
     build:
       context: ./backend
