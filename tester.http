@@ -1,0 +1,27 @@
+### Test the server
+GET http://localhost:5000
+
+### Test register endpoint
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "username": "tesztelek",
+  "password": "123456"
+}
+
+### Test login endpoint
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "tesztelek",
+  "password": "123456"
+}
+
+### Test login endpoint
+GET http://localhost:5000/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiZXhwIjoxNzM0OTkyMjU5fQ.xvdKPMbQdaBFdk27PPfotL0U6a2cafVD_KGp-Dve9dA
+
+
+

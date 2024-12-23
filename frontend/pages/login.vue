@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen items-center justify-center">
+  <div class="flex pt-6 lg:pt-12 items-center justify-center">
     <div class="w-full max-w-[330px] px-5">
       <h1 class="text-2xl font-bold tracking-tight lg:text-3xl">Log in</h1>
       <p class="mt-1 text-muted-foreground">Enter your email & password to log in.</p>
@@ -24,7 +24,7 @@
       </p>
       <p class="mt-4 text-sm text-muted-foreground">
         Don't have an account?
-        <NuxtLink class="font-semibold text-primary underline-offset-2 hover:underline" to="#"
+        <NuxtLink to="/register" class="font-semibold text-primary underline-offset-2 hover:underline"
         >Create account</NuxtLink
         >
       </p>

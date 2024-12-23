@@ -1,0 +1,13 @@
+db.users.find().pretty()
+use portfolio
+db.users.insertOne({username: "admin",password: "scrypt:32768:8:1$3ZG8PYJfQ8ToOFx0$1be6dcae74479bea1c6d218bc2eb1fefaa7d323f079449ed3d800457f17d21d543f184599a68a35b008f1689eacddfb3162a6f10b3c5007c1da5d1614aff1abf"})
+use portfolio
+db.users.find().pretty()
+use portfolio
+db.users.insertOne({username: "admin",password: "scrypt:32768:8:1$3ZG8PYJfQ8ToOFx0$1be6dcae74479bea1c6d218bc2eb1fefaa7d323f079449ed3d800457f17d21d543f184599a68a35b008f1689eacddfb3162a6f10b3c5007c1da5d1614aff1abf"})
+use portfolio
+db.users.insertOne({username: "testuser",password: "$2b$12$FBhcijecOodt56LkJY6E/OvXjGtobeJwMd7gwd8gOrSmKQp/rGq9u"})
+db.users.find().pretty()
+db.users.insertOne({username: "testuser",password: "$2b$12$FBhcijecOodt56LkJY6E/OvXjGtobeJwMd7gwd8gOrSmKQp/rGq9u"})
+db.users.find().pretty()
+use portfolio
