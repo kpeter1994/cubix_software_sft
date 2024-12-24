@@ -11,6 +11,7 @@ services:
       - backend
     networks:
       - app-network
+
   backend:
     build:
       context: ./backend
@@ -18,24 +19,11 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/portfolio
-    depends_on:
-      - mongo
-    networks:
-      - app-network
-
-  mongo:
-    image: mongo:6.0
-    container_name: mongo
-    ports:
-      - "27017:27017"
+      - DATABASE_PATH=/data/portfolio.db
     volumes:
-      - mongo_data:/data/db
+      - ./data:/data  # Lokális data mappa mountolása a backend konténerhez
     networks:
       - app-network
 
 networks:
   app-network:
-
-volumes:
-  mongo_data:

@@ -1,24 +1,20 @@
-# Alap image, amely tartalmaz Python 3-at
-FROM python:3.10-slim
+# Python alapú kép
+FROM python:3.11-slim
 
-# Munkakönyvtár létrehozása az alkalmazás számára
+# Munkakönyvtár beállítása
 WORKDIR /app
 
-# Másold a követelményeket a konténerbe
-COPY requirements.txt /app/
+# Követelmények másolása
+COPY requirements.txt requirements.txt
 
-# A szükséges Python csomagok telepítése
+# Python csomagok telepítése
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Az alkalmazás fájlok másolása
-COPY . /app/
+# Alkalmazás fájlok másolása
+COPY . .
 
-# A Flask alkalmazás elindításához szükséges környezeti változók beállítása
-ENV FLASK_APP=backend.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# Az alkalmazás alapértelmezett portja
+# Port nyitása
 EXPOSE 5000
 
-# A Flask alkalmazás futtatása
-CMD ["flask", "run"]
+# Alkalmazás futtatása
+CMD ["python", "backend.py"]
