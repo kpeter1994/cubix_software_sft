@@ -1,3 +1,38 @@
+<script lang="ts" setup>
+  import { object, string } from "yup";
+  import type { InferType } from "yup";
+
+  const authStore = useAuthStore();
+
+  definePageMeta({
+    middleware: "already-logged-in"
+  })
+
+  useSeoMeta({
+    title: "Log in",
+    description: "Enter your email & password to log in.",
+  });
+
+  const LoginSchema = object({
+    username: string().required().label("Felhasználónév"),
+    password: string().required().label("Jelszó"),
+  });
+
+  const { handleSubmit, isSubmitting } = useForm<InferType<typeof LoginSchema>>({
+    validationSchema: LoginSchema,
+  });
+
+  const submit = handleSubmit(async (values) => {
+     await authStore.login(values.username, values.password);
+
+    useSonner("Logged in successfully!", {
+      description: "You have successfully logged in.",
+    });
+
+    await navigateTo("/", { replace: true });
+  });
+</script>
+
 <template>
   <div class="flex pt-6 lg:pt-12 items-center justify-center">
     <div class="w-full max-w-[330px] px-5">
@@ -7,7 +42,7 @@
       <form class="mt-10" @submit="submit">
         <fieldset :disabled="isSubmitting" class="grid gap-5">
           <div>
-            <UiVeeInput label="Email" type="email" name="email" placeholder="john@example.com" />
+            <UiVeeInput label="Email" type="text" name="username" placeholder="john@example.com" />
           </div>
           <div>
             <UiVeeInput label="Password" type="password" name="password" />
@@ -32,27 +67,3 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { object, string } from "yup";
-  import type { InferType } from "yup";
-
-  useSeoMeta({
-    title: "Log in",
-    description: "Enter your email & password to log in.",
-  });
-
-  const LoginSchema = object({
-    email: string().email().required().label("Email"),
-    password: string().required().label("Password").min(8),
-  });
-
-  const { handleSubmit, isSubmitting } = useForm<InferType<typeof LoginSchema>>({
-    validationSchema: LoginSchema,
-  });
-
-  const submit = handleSubmit(async (_) => {
-    useSonner("Logged in successfully!", {
-      description: "You have successfully logged in.",
-    });
-  });
-</script>

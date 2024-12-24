@@ -2,8 +2,13 @@ from flask import Flask, request, jsonify
 from controller.auth_controller import AuthController
 from model.user import User
 from middleware.auth import auth_required
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+
+CORS(app)
+
 
 @app.route("/", methods=["GET"])
 def index():
@@ -42,6 +47,12 @@ def login():
 @auth_required
 def protected_resource(user):
     return jsonify({"message": "Hozzáférés engedélyezve", "user_id": user["user_id"]}), 200
+
+@app.route("/verification", methods=["GET"])
+@auth_required
+def verification(user):
+    user_data = User.get_by_id(user["user_id"])
+    return jsonify({"message": "Hozzáférés engedélyezve", "user": user_data.to_dict() }), 200
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

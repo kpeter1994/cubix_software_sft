@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="@localhost" uuid="54c6f7a3-e81b-442b-8597-6381961abf4d">
-      <driver-ref>mongo.4</driver-ref>
+      <driver-ref>mongo</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
       <jdbc-url>mongodb://localhost:27017</jdbc-url>
@@ -24,7 +24,7 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="portfolio [2]" uuid="43134b95-6451-4294-9b87-2f12f301a280">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>9aed28cd-a0c6-4aa6-8fd0-3cb1cefd296e</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\user\Documents\GitHub\cubix_software_sft\backend\db\portfolio.db</jdbc-url>

@@ -27,7 +27,7 @@
     }
   );
 
-  // Use weakmap to store reference to each datapoint for Tooltip
+  // Use weakmap to stores reference to each datapoint for Tooltip
   const wm = new WeakMap();
   function template(d: any, i: number, elements: (HTMLElement | SVGElement)[]) {
     if (props.index in d) {

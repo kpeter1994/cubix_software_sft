@@ -1,0 +1,27 @@
+### Test the server
+GET http://127.0.0.1:5000
+
+### Test register endpoint
+POST http://127.0.0.1:5000/register
+Content-Type: application/json
+
+{
+  "username": "smitpeter12234",
+  "password": "123456"
+}
+
+### Test login endpoint
+POST http://127.0.0.1:5000/login
+Content-Type: application/json
+
+{
+  "username": "smitpeter123",
+  "password": "123456"
+}
+
+### Test login endpoint
+GET http://127.0.0.1:5000/verification
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNywiZXhwIjoxNzM1MDY1ODg4fQ.MRmjEhahDeOACN4Q6tDZ8GA-j0Pxd0kCw5UVbWH2w88
+
+
+

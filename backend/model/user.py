@@ -9,6 +9,12 @@ class User:
         self.username = username
         self.password = password
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username
+        }
+
     @classmethod
     def get_by_username(cls, username):
         user_data = DB.get_by_field("users", "username", username)

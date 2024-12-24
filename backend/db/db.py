@@ -1,17 +1,17 @@
+from flask import g
 import sqlite3
 import os
 
 
 class DB:
-    _connection = None
     _db_name = os.path.join(os.path.dirname(__file__), "../db/portfolio.db")
 
     @staticmethod
     def _get_connection():
-        if DB._connection is None:
-            DB._connection = sqlite3.connect(DB._db_name)
-            DB._connection.row_factory = sqlite3.Row
-        return DB._connection
+        if 'db' not in g:
+            g.db = sqlite3.connect(DB._db_name)
+            g.db.row_factory = sqlite3.Row
+        return g.db
 
     @staticmethod
     def insert(table, data):
@@ -43,3 +43,4 @@ class DB:
         cursor.execute(query, (value,))
         result = cursor.fetchone()
         return dict(result) if result else None
+
