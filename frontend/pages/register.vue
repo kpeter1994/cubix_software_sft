@@ -1,3 +1,45 @@
+<script lang="ts" setup>
+  import { object, string } from "yup";
+  import type { InferType } from "yup";
+
+  const title = "Regisztáció";
+  const description = "Adja meg az adatait a regisztrációhoz.";
+
+  const authStore = useAuthStore();
+
+  definePageMeta({
+    middleware: "already-logged-in"
+  })
+
+  useSeoMeta({ title, description });
+
+  const Schema = object({
+    name: string().required().label("Név").min(3).max(50),
+    username: string().required().label("Felhasználónév"),
+    password: string().required().label("Jelszó").min(8),
+  });
+
+  const { handleSubmit, isSubmitting } = useForm<InferType<typeof Schema>>({
+    validationSchema: Schema,
+  });
+
+  const submit = handleSubmit(async (values) => {
+    try {
+      await authStore.register({'name': values.name, 'username': values.username, 'password': values.password });
+
+      useSonner.success("Account created!", {
+        description: "You have successfully created an account.",
+      });
+
+      await navigateTo("/", { replace: true });
+    } catch (error) {
+      useSonner.error("Failed to create account!", {
+        description: "An error occurred while creating your account.",
+      });
+    }
+  });
+</script>
+
 <template>
   <div class="relative flex pt-6 lg:pt-12 items-center justify-center">
     <div
@@ -10,15 +52,15 @@
 
       <form class="mt-10" @submit="submit">
         <fieldset :disabled="isSubmitting" class="grid gap-5">
-          <UiVeeInput required label="Name" name="name" placeholder="John Doe" />
+          <UiVeeInput required label="Név" name="name" placeholder="John Doe" />
           <UiVeeInput
             required
-            label="Email"
-            type="email"
-            name="email"
+            label="Felhasználónév"
+            type="text"
+            name="username"
             placeholder="john@example.com"
           />
-          <UiVeeInput required label="Password" type="password" name="password" />
+          <UiVeeInput required label="Jelszó" type="password" name="password" />
           <UiButton class="w-full" type="submit" text="Create account" />
         </fieldset>
       </form>
@@ -32,28 +74,4 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { object, string } from "yup";
-  import type { InferType } from "yup";
 
-  const title = "Sign Up";
-  const description = "Create an account to get started.";
-
-  useSeoMeta({ title, description });
-
-  const Schema = object({
-    name: string().required().label("Name").min(3).max(50),
-    email: string().email().required().label("Email"),
-    password: string().required().label("Password").min(8),
-  });
-
-  const { handleSubmit, isSubmitting } = useForm<InferType<typeof Schema>>({
-    validationSchema: Schema,
-  });
-
-  const submit = handleSubmit(async (_) => {
-    useSonner("Account created!", {
-      description: "You have successfully created an account.",
-    });
-  });
-</script>

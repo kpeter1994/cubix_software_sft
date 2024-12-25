@@ -1,48 +1,47 @@
-from db.db import DB
+from db.db_config import db
+from peewee import Model, CharField
 import bcrypt
 
 
-class User:
+class User(Model):
 
-    def __init__(self, user_id=None, username=None, password=None):
-        self.id = user_id
-        self.username = username
-        self.password = password
+    username = CharField(unique=True)
+    password = CharField()
+    name = CharField(null=True)
+
+    class Meta:
+        database = db
+        table_name = "users"
+
 
     def to_dict(self):
         return {
             "id": self.id,
-            "username": self.username
+            "username": self.username,
+            "name": self.name
         }
 
-    @classmethod
-    def get_by_username(cls, username):
-        user_data = DB.get_by_field("users", "username", username)
-        if user_data:
-            return cls(
-                user_id=user_data["id"],
-                username=user_data["username"],
-                password=user_data["password"]
-            )
-        return None
+    def check_password(self, password: set) -> bool:
+        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
 
     @classmethod
-    def create(cls, username, password):
+    def create_user(cls, username, password, name):
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        user_id = DB.insert("users", {"username": username, "password": hashed_password})
-        return cls.get_by_id(user_id)
+        return cls.create(username=username, password=hashed_password, name=name)
 
     @classmethod
     def get_by_id(cls, user_id):
-        user_data = DB.get_by_id("users", user_id)
-        if user_data:
-            return cls(
-                user_id=user_data["id"],
-                username=user_data["username"],
-                password=user_data["password"]
-            )
-        return None
+        try:
+            return cls.get(cls.id == user_id)
+        except cls.DoesNotExist:
+            return None
 
-    def check_password(self, password):
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+    @classmethod
+    def get_by_username(cls, username):
+        try:
+            return cls.get(cls.username == username)
+        except cls.DoesNotExist:
+            return None
+
+
 

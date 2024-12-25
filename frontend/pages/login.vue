@@ -25,7 +25,7 @@
   const submit = handleSubmit(async (values) => {
      await authStore.login(values.username, values.password);
 
-    useSonner("Logged in successfully!", {
+    useSonner.success("Logged in successfully!", {
       description: "You have successfully logged in.",
     });
 

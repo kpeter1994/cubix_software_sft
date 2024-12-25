@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify
-from controller.auth_controller import AuthController
-from model.user import User
-from middleware.auth import auth_required
 from flask_cors import CORS
+from routes.auth import auth
+from routes.stock import stock
 
 
 app = Flask(__name__)
@@ -14,45 +13,9 @@ CORS(app)
 def index():
     return jsonify({"message": "Welcome to the API!"}), 200
 
-@app.route("/register", methods=["POST"])
-def register():
-    data = request.json
+app.register_blueprint(auth, url_prefix="/auth")
+app.register_blueprint(stock, url_prefix="/stock")
 
-    username = data.get("username")
-    password = data.get("password")
-
-    if not username or not password:
-        return jsonify({"error": "Hiányzó felhasználónév vagy jelszó"}), 400
-
-    if User.get_by_username(username):
-        return jsonify({"error": "A felhasználónév már foglalt"}), 409
-
-    user = AuthController().register(username, password)
-    return user, 201
-
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.json
-
-    username = data.get("username")
-    password = data.get("password")
-
-    if not username or not password:
-        return jsonify({"error": "Hiányzó felhasználónév vagy jelszó"}), 400
-
-    user = AuthController().login(username, password)
-    return user, 200
-
-@app.route("/protected", methods=["GET"])
-@auth_required
-def protected_resource(user):
-    return jsonify({"message": "Hozzáférés engedélyezve", "user_id": user["user_id"]}), 200
-
-@app.route("/verification", methods=["GET"])
-@auth_required
-def verification(user):
-    user_data = User.get_by_id(user["user_id"])
-    return jsonify({"message": "Hozzáférés engedélyezve", "user": user_data.to_dict() }), 200
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

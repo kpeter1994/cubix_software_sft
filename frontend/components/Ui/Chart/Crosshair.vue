@@ -22,7 +22,7 @@
     }
   );
 
-  // Use weakmap to stores reference to each datapoint for Tooltip
+  // Use weakmap to store reference to each datapoint for Tooltip
   const wm = new WeakMap();
   function template(d: any) {
     if (wm.has(d)) {

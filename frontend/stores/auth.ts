@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia'
 
-
 export const useAuthStore = defineStore('auth',() => {
   const user = ref(null)
   const token = ref<string | null>(null); // Az auth token
-  const isLoading = ref(false);
   const isLogedIn = computed(() => !!user.value);
 
   const init = async () => {
@@ -15,9 +13,31 @@ export const useAuthStore = defineStore('auth',() => {
     }
   };
 
+
+  const register = async (data: object) => {
+    try {
+      const response: any = await $fetch('/auth/register', {
+        baseURL: useRuntimeConfig().public.backendUrl,
+        method: 'POST',
+        body: data,
+      })
+
+      token.value = response.token;
+
+      if (token.value) {
+        localStorage.setItem('authToken', token.value);
+        await verifyToken(token.value)
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+
   const verifyToken = async (savedToken: string) => {
     try {
-      const response : any = await $fetch('/verification',{
+      const response : any = await $fetch('/auth/verification',{
         baseURL: useRuntimeConfig().public.backendUrl,
         headers: { Authorization: `Bearer ${token.value}` }
       })
@@ -31,10 +51,8 @@ export const useAuthStore = defineStore('auth',() => {
 
   const login = async (username: string, password: string) => {
 
-    isLoading.value = true;
-
     try {
-      const response : any = await $fetch('/login',{
+      const response : any = await $fetch('/auth/login',{
         baseURL: useRuntimeConfig().public.backendUrl,
         method: 'POST',
         body: { username, password },
@@ -49,8 +67,6 @@ export const useAuthStore = defineStore('auth',() => {
 
     } catch (error) {
       console.error(error)
-    } finally {
-      isLoading.value = false;
     }
 
   }
@@ -60,6 +76,7 @@ export const useAuthStore = defineStore('auth',() => {
     token.value = null;
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
+
   }
 
 
@@ -67,9 +84,9 @@ export const useAuthStore = defineStore('auth',() => {
   return{
     user,
     token,
-    isLoading,
     isLogedIn,
     login,
+    register,
     init,
     logout
   }
