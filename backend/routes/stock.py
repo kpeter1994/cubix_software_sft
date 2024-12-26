@@ -17,7 +17,6 @@ def history_price(user):
         stock = yf.Ticker(symbol)
         data = stock.history(start=start_date, end=end_date, interval=interval)
         if not data.empty:
-            # Adatok előfeldolgozása az ApexCharts formátumához
             processed_data = [
                 {
                     "x": row["Date"].strftime("%Y-%m-%d"),  # Dátum stringként

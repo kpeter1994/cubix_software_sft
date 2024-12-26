@@ -20,15 +20,14 @@ Content-Type: application/json
   "password": "123456"
 }
 
-### Test login endpoint
+### Test verification endpoint
 GET http://127.0.0.1:5000/auth/verification
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQyNjIzfQ.G4Fp9l3Qs24huIOhCzSGzpM-dOiZ8QErC85uNNQwJbk
 
 
 ### Test stock price endpointf
 GET http://127.0.0.1:5000/stock/history-price?stock_symbol=ACHR&start=2024-01-01&end=2024-12-24
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQyNjIzfQ.G4Fp9l3Qs24huIOhCzSGzpM-dOiZ8QErC85uNNQwJbk
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQ5MDg0fQ.9vcvHXZTv2RKMrmW1BVg88VT4vmEa_I8nBK0mU7XO7U
 
 
 

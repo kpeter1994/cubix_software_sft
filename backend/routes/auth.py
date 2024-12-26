@@ -15,9 +15,6 @@ def register():
     if not username or not password:
         return jsonify({"error": "Hiányzó felhasználónév vagy jelszó"}), 400
 
-    if User.get_by_username(username):
-        return jsonify({"error": "A felhasználónév már foglalt"}), 409
-
     user = AuthController().register(username, password, name)
     return jsonify(user), 201
 

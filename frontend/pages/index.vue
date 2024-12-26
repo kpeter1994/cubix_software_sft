@@ -6,7 +6,7 @@
 
 <template>
   <div class="p-6">
-    <div class="max-w-7xl ">
+    <div class="w-full ">
 
       <h1 class="text-2xl font-bold tracking-tight lg:text-3xl">Dashboard</h1>
       <ChartComponent/>

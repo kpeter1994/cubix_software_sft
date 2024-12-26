@@ -16,4 +16,5 @@ dependencies = [  # Függőségek listázása
     "PyJWT",
     "peewee",
     "flask-cors",
+    "yfinance",
 ]

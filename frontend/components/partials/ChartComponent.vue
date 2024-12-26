@@ -52,7 +52,7 @@
   </div>
 
 
-  <apexchart type="candlestick" height="350" :options="chartOptions" :series="series"></apexchart>
+  <apexchart class="w-full" type="candlestick" height="350" :options="chartOptions" :series="series"></apexchart>
 </template>
 
 
