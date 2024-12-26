@@ -64,6 +64,7 @@ export const useAuthStore = defineStore('auth',() => {
         localStorage.setItem('authToken', token.value);
         await verifyToken(token.value)
       }
+      return response;
 
     } catch (error) {
       console.error(error)

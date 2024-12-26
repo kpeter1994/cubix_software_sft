@@ -23,17 +23,20 @@
   });
 
   const submit = handleSubmit(async (values) => {
-    try{
-      await authStore.login(values.username, values.password);
-      useSonner.success("Logged in successfully!", {
-        description: "You have successfully logged in.",
-      });
+
+      const response : any = await authStore.login(values.username, values.password);
+
+      const { error, message } = response;
+
+      if (error) {
+        useSonner.error(error);
+        return;
+      }
+
+      useSonner.success(message);
+
       await navigateTo("/", { replace: true });
-    } catch (error: any) {
-      useSonner.error("Error during login!", {
-        description: error.message,
-      });
-    }
+
   });
 </script>
 
@@ -42,6 +45,7 @@
     <div class="w-full max-w-[330px] px-5">
       <h1 class="text-2xl font-bold tracking-tight lg:text-3xl">Log in</h1>
       <p class="mt-1 text-muted-foreground">Enter your email & password to log in.</p>
+
 
       <form class="mt-10" @submit="submit">
         <fieldset :disabled="isSubmitting" class="grid gap-5">
