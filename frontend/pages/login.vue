@@ -23,13 +23,17 @@
   });
 
   const submit = handleSubmit(async (values) => {
-     await authStore.login(values.username, values.password);
-
-    useSonner.success("Logged in successfully!", {
-      description: "You have successfully logged in.",
-    });
-
-    await navigateTo("/", { replace: true });
+    try{
+      await authStore.login(values.username, values.password);
+      useSonner.success("Logged in successfully!", {
+        description: "You have successfully logged in.",
+      });
+      await navigateTo("/", { replace: true });
+    } catch (error: any) {
+      useSonner.error("Error during login!", {
+        description: error.message,
+      });
+    }
   });
 </script>
 
