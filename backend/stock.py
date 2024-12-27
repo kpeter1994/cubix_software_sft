@@ -1,36 +1,22 @@
 import yfinance as yf
+import json
 
-def get_stock_data(ticker: str):
-    """
-    Lekérdezi egy adott részvény (ticker) aktuális adatait (záróár, árfolyamváltozás, forgalom)
-    az utolsó 1 napra vonatkozóan.
+def get_historical_prices_json(symbol, start_date, end_date, interval="1d"):
+    stock = yf.Ticker(symbol)
+    data = stock.history(start=start_date, end=end_date, interval=interval)
+    if not data.empty:
+        # Konvertálás JSON objektummá
+        json_data = data.reset_index().to_json(orient="records", date_format="iso")
+        return json.loads(json_data)
+    else:
+        return {"error": "Nem található adat a megadott időszakra."}
 
-    :param ticker: A részvény ticker kódja (pl. 'AAPL' vagy 'GOOG')
-    :return: Egy dictionary a részvény adataival
-    """
-    try:
-        # A részvény adatainak lekérése a Yahoo Finance API-n keresztül
-        stock = yf.Ticker(ticker)
-        data = stock.history(period="1d")  # 1 napra lekérjük az adatokat
+# Használat
+if __name__ == "__main__":
+    stock_symbol = "AAPL"  # Apple részvény szimbólum
+    start = "2022-01-01"  # Kezdő dátum (ÉÉÉÉ-HH-NN)
+    end = "2022-12-31"    # Záró dátum (ÉÉÉÉ-HH-NN)
+    interval = "1d"       # Időköz (pl. "1d", "1wk", "1mo")
 
-        if not data.empty:
-            # Az utolsó nap (1 nap) záró ára, árfolyamváltozása és forgalma
-            price = data['Close'].iloc[0]  # Az első (0. pozíciójú) záróár
-            change = data['Close'].iloc[0] - data['Open'].iloc[0]  # Az árfolyamváltozás
-            volume = data['Volume'].iloc[0]  # Az első (0. pozíciójú) forgalom
-
-            # Visszatérési adat formátuma
-            return {
-                "ticker": ticker,
-                "price": price,
-                "change": change,
-                "volume": volume,
-            }
-        else:
-            return {"message": "No data found for ticker."}
-    except Exception as e:
-        return {"message": f"Error fetching data: {str(e)}"}
-
-# # Tesztelés
-# stock_data = get_stock_data("GOOG")  # Például Apple részvény adatai
-# print(stock_data)
+    historical_data = get_historical_prices_json(stock_symbol, start, end, interval)
+    print(json.dumps(historical_data, indent=2, ensure_ascii=False))
