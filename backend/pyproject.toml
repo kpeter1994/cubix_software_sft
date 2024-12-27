@@ -7,7 +7,7 @@ name = "portfolio"
 version = "0.1.0"
 description = "Portfolió"
 authors = [
-    { name = "Kovács Péter", email = "kpeter1994@gmail.com" }
+    { name = "Kovács Péter", email = "kpeter1994@gmail.com" },
     { name = "Fehér Péter", email = "feher.peter.lazlo@gmail.com" }
 ]
 
