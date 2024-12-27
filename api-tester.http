@@ -29,7 +29,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZ
 GET http://127.0.0.1:5000/stock/history-price?stock_symbol=ACHR&start=2024-01-01&end=2024-12-24
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQ5MDg0fQ.9vcvHXZTv2RKMrmW1BVg88VT4vmEa_I8nBK0mU7XO7U
 
-## Test add-share-to portfolio
+### Test create-portfolio
+POST http://127.0.0.1:5000/stock/create-portfolio
+Authorization
+Bearer <Token>
+{
+  "name": "portfolio név",
+  "description": "Leírása"
+}
+
+
+### Test add-share-to portfolio
 
 POST http://127.0.0.1:5000/stock/add-shares-to-portfolio
 
@@ -45,11 +55,11 @@ Body:
     }
   ]
 }
-##Get user portfolios
+### Get user portfolios
 GET - http://localhost:5000/stock/get-user-portfolios
 Authorization: Bearer <token>
 
-##Get shares for portfolio
+### Get shares for portfolio
 
 GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
 Authorization: Bearer <token>
