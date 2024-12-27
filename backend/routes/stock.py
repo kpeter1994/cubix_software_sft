@@ -5,6 +5,7 @@ from middleware.auth import auth_required
 from controller.portfolio_controller import PortfolioController
 from model.share import Share
 
+
 stock = Blueprint("stock", __name__)
 
 @stock.route("/history-price", methods=["GET"])
@@ -37,7 +38,7 @@ def history_price(user):
 @stock.route("/create-portfolio", methods=["POST"])
 @auth_required
 def create_portfolio(user):
-    user_id = user["user_id"]  # A middleware biztosítja a hitelesített felhasználót
+    user_id = user["user_id"]
     request_data = request.get_json()
 
     name = request_data.get("name")
@@ -53,13 +54,10 @@ def create_portfolio(user):
 
     return jsonify(result), 201
 
-
 @stock.route("/get-user-portfolios", methods=["GET"])
 @auth_required
 def get_user_portfolios(user):
-    user_id = user["user_id"]  # A hitelesített felhasználó ID-ja
-
-    # Lekérjük a felhasználó összes portfólióját
+    user_id = user["user_id"]
     portfolios = PortfolioController.get_user_portfolios(user_id)
 
     if not portfolios:
@@ -67,21 +65,18 @@ def get_user_portfolios(user):
 
     return jsonify({"portfolios": portfolios}), 200
 
-
 @stock.route("/add-shares-to-portfolio", methods=["POST"])
 @auth_required
 def add_shares_to_portfolio(user):
-    user_id = user["user_id"]  # A hitelesített felhasználó ID-ja
+    user_id = user["user_id"]
     request_data = request.get_json()
 
     portfolio_id = request_data.get("portfolio_id")
     share_data = request_data.get("share_data", [])
 
-    # Ellenőrizzük, hogy a portfolio_id és a share_data meg vannak-e adva
     if not portfolio_id or not share_data:
         return jsonify({"error": "Portfolio ID és share_data szükséges"}), 400
 
-    # Hívjuk meg a controller-t, hogy hozzáadja a részvényeket a portfólióhoz
     result = PortfolioController.add_shares_to_portfolio(user_id, portfolio_id, share_data)
 
     if "error" in result:
@@ -93,13 +88,11 @@ def add_shares_to_portfolio(user):
 @auth_required
 def get_shares_for_portfolio(user):
     user_id = user["user_id"]
-    portfolio_id = request.args.get("portfolio_id")  # Az URL query paraméterekből
+    portfolio_id = request.args.get("portfolio_id")
 
-    # Ellenőrizzük, hogy a portfolio_id meg van-e adva
     if not portfolio_id:
         return jsonify({"error": "Portfolio ID szükséges"}), 400
 
-    # Lekérjük a portfóliót és ellenőrizzük, hogy az aktuális felhasználóhoz tartozik-e
     portfolio = PortfolioController.get_portfolio(portfolio_id)
 
     if "error" in portfolio:
@@ -108,7 +101,45 @@ def get_shares_for_portfolio(user):
     if portfolio["user_id"] != user_id:
         return jsonify({"error": "Ez a portfólió nem a felhasználóhoz tartozik"}), 403
 
-    # Lekérjük a portfólióhoz tartozó részvényeket
     shares = Share.get_by_portfolio_id(portfolio_id)
 
     return jsonify({"shares": [share.to_dict() for share in shares]}), 200
+
+@stock.route("/delete-portfolio", methods=["DELETE"])
+@auth_required
+def delete_portfolio(user):
+    user_id = user["user_id"]
+    portfolio_id = request.args.get("portfolio_id")
+
+    if not portfolio_id:
+        return jsonify({"error": "Portfolio ID szükséges"}), 400
+
+    try:
+        portfolio_id = int(portfolio_id)
+    except ValueError:
+        return jsonify({"error": "Érvénytelen Portfolio ID"}), 400
+
+    result = PortfolioController.delete_portfolio(user_id, portfolio_id)
+
+    if "error" in result:
+        return jsonify(result), 400
+
+    return jsonify(result), 200
+
+
+@stock.route("/delete-share-from-portfolio", methods=["DELETE"])
+@auth_required
+def delete_share_from_portfolio(user):
+    user_id = user["user_id"]
+    portfolio_id = request.args.get("portfolio_id")
+    share_id = request.args.get("share_id")
+
+    if not portfolio_id or not share_id:
+        return jsonify({"error": "Portfolio ID és Share ID szükséges"}), 400
+
+    result = PortfolioController.delete_share_from_portfolio(user_id, portfolio_id, share_id)
+
+    if "error" in result:
+        return jsonify(result), 500
+
+    return jsonify(result), 200

@@ -1,4 +1,4 @@
-from peewee import Model, IntegerField, CharField, TextField, DateTimeField
+from peewee import Model, IntegerField, CharField, TextField, DateTimeField, DoesNotExist
 from datetime import datetime
 from db.db_config import db
 
@@ -36,3 +36,4 @@ class Portfolio(Model):
     @classmethod
     def get_by_user_id(cls, user_id):
         return cls.select().where(cls.user_id == user_id)
+

@@ -5,10 +5,8 @@ class PortfolioController:
     @staticmethod
     def create_portfolio(user_id, name, description=None):
         try:
-            # Portfólió létrehozása
             portfolio = Portfolio.create_portfolio(user_id=user_id, name=name, description=description)
 
-            # Sikeres válasz visszaadása
             return {
                 "portfolio_id": portfolio.id,
                 "user_id": portfolio.user_id,
@@ -33,7 +31,6 @@ class PortfolioController:
     @staticmethod
     def add_shares_to_portfolio(user_id, portfolio_id, share_data):
         try:
-            # Ellenőrizzük, hogy létezik-e a portfólió
             portfolio = Portfolio.get_by_id(portfolio_id)
             if not portfolio:
                 return {"error": "Portfólió nem található"}
@@ -42,7 +39,6 @@ class PortfolioController:
             if portfolio.user_id != user_id:
                 return {"error": "Ez a portfólió nem a felhasználóhoz tartozik"}
 
-            # Share adatok hozzáadása a portfólióhoz
             for share in share_data:
                 Share.create_share(
                     portfolio_id=portfolio.id,
@@ -53,5 +49,44 @@ class PortfolioController:
                 )
 
             return {"message": "Részvények sikeresen hozzáadva a portfólióhoz"}
+        except Exception as e:
+            return {"error": str(e)}
+
+    @staticmethod
+    def delete_portfolio(user_id, portfolio_id):
+        try:
+            portfolio = Portfolio.get_by_id(portfolio_id)
+
+            if portfolio.user_id != user_id:
+                return {"error": "Ez a portfólió nem a felhasználóhoz tartozik"}
+
+            portfolio.delete_instance()
+
+            return {"message": "Portfólió sikeresen törölve"}
+
+        except Portfolio.DoesNotExist:
+            return {"error": "Portfólió nem található"}
+        except Exception as e:
+            return {"error": str(e)}
+
+    @staticmethod
+    def delete_share_from_portfolio(user_id, portfolio_id, share_id):
+        try:
+            portfolio = Portfolio.get_by_id(portfolio_id)
+            if not portfolio:
+                return {"error": "Portfólió nem található"}
+
+            if portfolio.user_id != user_id:
+                return {"error": "Ez a portfólió nem a felhasználóhoz tartozik"}
+
+            share = Share.get((Share.portfolio_id == portfolio_id) & (Share.id == share_id))
+            if not share:
+                return {"error": "Részvény nem található a portfólióban"}
+
+            share.delete_instance()
+
+            return {"message": "Részvény sikeresen törölve a portfólióból"}
+        except Share.DoesNotExist:
+            return {"error": "Részvény nem található a portfólióban"}
         except Exception as e:
             return {"error": str(e)}

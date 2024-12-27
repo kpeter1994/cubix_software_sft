@@ -38,7 +38,6 @@ Bearer <Token>
   "description": "Leírása"
 }
 
-
 ### Test add-share-to portfolio
 
 POST http://127.0.0.1:5000/stock/add-shares-to-portfolio
@@ -62,4 +61,16 @@ Authorization: Bearer <token>
 ### Get shares for portfolio
 
 GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
+Authorization: Bearer <token>
+
+
+### Delete portfolio
+
+DELETE http://localhost:5000/stock/delete-portfolio?portfolio_id=1
+
+Authorization: Bearer <token>
+
+### Delete share from portfolio
+
+DELETE http://localhost:5000/stock/delete-share-from-portfolio?portfolio_id=3&share_id=4
 Authorization: Bearer <token>

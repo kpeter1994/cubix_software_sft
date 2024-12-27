@@ -1,16 +1,16 @@
 from peewee import Model, IntegerField, CharField, DecimalField, DateField
-from db.db_config import db  # Az adatbázis kapcsolat importálása
+from db.db_config import db
 
 class Share(Model):
-    portfolio_id = IntegerField()  # A portfólió ID-ja
-    share_id = CharField()  # A részvény azonosítója
-    cost_value = DecimalField()  # A részvény költség értéke (DecimalField biztosítja a nagy pontosságot)
-    quantity = IntegerField()  # A részvény mennyisége
-    date = DateField()  # A vásárlás dátuma
+    portfolio_id = IntegerField()
+    share_id = CharField()
+    cost_value = DecimalField()
+    quantity = IntegerField()
+    date = DateField()
 
     class Meta:
-        database = db  # Az adatbázis beállítása
-        table_name = "share"  # Az adatbázis tábla neve
+        database = db
+        table_name = "share"
 
     def to_dict(self):
         """Az objektum szótár formátumra alakítása"""
@@ -42,3 +42,9 @@ class Share(Model):
     def get_by_portfolio_id(cls, portfolio_id):
         """Részvények lekérése portfólió ID alapján"""
         return cls.select().where(cls.portfolio_id == portfolio_id)
+
+    @staticmethod
+    def get_by_portfolio_and_id(portfolio_id, share_id):
+        return Share.select().where(
+            (Share.portfolio_id == portfolio_id) & (Share.id == share_id)
+        ).first()
