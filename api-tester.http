@@ -1,0 +1,65 @@
+### Test the server
+GET http://127.0.0.1:5000
+
+### Test register endpoint
+POST http://127.0.0.1:5000/auth/register
+Content-Type: application/json
+
+{
+  "username": "smitpetzker34",
+  "password": "123456",
+  "name": "Smit Peter"
+}
+
+### Test login endpoint
+POST http://127.0.0.1:5000/auth/login
+Content-Type: application/json
+
+{
+  "username": "smitpetzker34",
+  "password": "123456"
+}
+
+### Test verification endpoint
+GET http://127.0.0.1:5000/auth/verification
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQyNjIzfQ.G4Fp9l3Qs24huIOhCzSGzpM-dOiZ8QErC85uNNQwJbk
+
+
+### Test stock price endpointf
+GET http://127.0.0.1:5000/stock/history-price?stock_symbol=ACHR&start=2024-01-01&end=2024-12-24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZXhwIjoxNzM1MTQ5MDg0fQ.9vcvHXZTv2RKMrmW1BVg88VT4vmEa_I8nBK0mU7XO7U
+
+### Test create-portfolio
+POST http://127.0.0.1:5000/stock/create-portfolio
+Authorization
+Bearer <Token>
+{
+  "name": "portfolio név",
+  "description": "Leírása"
+}
+
+
+### Test add-share-to portfolio
+
+POST http://127.0.0.1:5000/stock/add-shares-to-portfolio
+
+Body:
+{
+  "portfolio_id": 1,
+  "share_data": [
+    {
+      "share_id": "AAPL",
+      "cost_value": 150.25,
+      "quantity": 10,
+      "date": "2024-12-27"
+    }
+  ]
+}
+### Get user portfolios
+GET - http://localhost:5000/stock/get-user-portfolios
+Authorization: Bearer <token>
+
+### Get shares for portfolio
+
+GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
+Authorization: Bearer <token>

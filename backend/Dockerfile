@@ -1,20 +1,12 @@
-# Python alapú kép
-FROM python:3.11-slim
+FROM python:3.9-slim
 
-# Munkakönyvtár beállítása
 WORKDIR /app
 
-# Követelmények másolása
-COPY requirements.txt requirements.txt
+COPY pyproject.toml ./
 
-# Python csomagok telepítése
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir build setuptools && pip install --no-cache-dir .
 
-# Alkalmazás fájlok másolása
 COPY . .
 
-# Port nyitása
-EXPOSE 5000
-
 # Alkalmazás futtatása
-CMD ["python", "backend.py"]
+CMD ["python", "app.py"]
