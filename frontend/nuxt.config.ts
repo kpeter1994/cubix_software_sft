@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      backendUrl: process.env.BACKEND_URL || 'http://127.0.0.1:5000',
+    },
+  },
   dev: process.env.NODE_ENV !== 'production',
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
@@ -12,7 +17,8 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@samk-dev/nuxt-vcalendar",
     "@vee-validate/nuxt",
-    "@morev/vue-transitions/nuxt"
+    "@morev/vue-transitions/nuxt",
+    "@pinia/nuxt"
   ],
 
   tailwindcss: {
