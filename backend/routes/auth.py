@@ -15,8 +15,13 @@ def register():
     if not username or not password:
         return jsonify({"error": "Hiányzó felhasználónév vagy jelszó"}), 400
 
-    user = AuthController().register(username, password, name)
-    return jsonify(user), 201
+    response = AuthController.register(username, password, name)
+
+    # Ha a response már egy dict, azt `jsonify`-zzuk, ha Response objektum, közvetlenül adjuk vissza
+    if isinstance(response, dict):
+        return jsonify(response), 201
+    return response
+
 
 @auth.route("/login", methods=["POST"])
 def login():
