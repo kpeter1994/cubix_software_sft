@@ -37,7 +37,6 @@
     <UiVeeMultiSelect
       class="max-w-xl"
       searchable
-      form-label="Stock"
       value-prop="name"
       v-model="selectedStock"
       label="formattedLabel"
