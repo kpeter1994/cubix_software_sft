@@ -28,11 +28,8 @@ jobs:
           cd backend
           python -m pip install .
 
-      - name: Set PYTHONPATH
+      - name: Set PYTHONPATH and run tests
         run: |
-          echo "export PYTHONPATH=\$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
-
-      - name: Run tests
-        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
           cd backend
           python -m unittest discover -s tests -p 'test_*.py'
