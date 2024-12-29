@@ -1,9 +1,8 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from datetime import datetime
-from backend.controller.portfolio_controller import PortfolioController
-from backend.model.portfolio import Portfolio
-from backend.model.share import Share
+from ..controller.portfolio_controller import PortfolioController
+
 
 class TestPortfolioController(unittest.TestCase):
 
