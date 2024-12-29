@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feherp
   pull_request:
     branches:
       - main
@@ -29,8 +28,11 @@ jobs:
           cd backend
           python -m pip install .
 
-      - name: Set PYTHONPATH and run tests
+      - name: Set PYTHONPATH
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
+          echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: |
           cd backend
           python -m unittest discover -s tests -p 'test_*.py'
