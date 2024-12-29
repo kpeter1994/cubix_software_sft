@@ -30,7 +30,7 @@ jobs:
 
       - name: Set PYTHONPATH
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          echo "export PYTHONPATH=\$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
