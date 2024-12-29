@@ -26,11 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install setuptools wheel 
           cd backend
-          python -m pip install . 
+          python -m pip install .
 
       - name: Run tests
         run: |
-          cd backend  # Teszteléshez is a backend könyvtárba kell váltani
-          python -m unittest discover -s . -p 'test_*.py' 
-          
-
+          cd backend
+          export PYTHONPATH=$(pwd)  # Beállítja a backend mappát, mint a PYTHONPATH
+          python -m unittest discover -s tests -p 'test_*.py'
