@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from datetime import datetime
-from ..controller.portfolio_controller import PortfolioController
+from controller.portfolio_controller import PortfolioController
 
 class TestPortfolioController(unittest.TestCase):
 
