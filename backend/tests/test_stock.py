@@ -3,7 +3,6 @@ from unittest.mock import patch, MagicMock
 from datetime import datetime
 from controller.portfolio_controller import PortfolioController
 
-
 class TestPortfolioController(unittest.TestCase):
 
     @patch("model.portfolio.Portfolio.create_portfolio")
