@@ -14,7 +14,7 @@
         <StockSearchComponent/>
         <ChartComponent/>
       </div>
-      <div class="w-full p-2">
+      <div class="lg:w-1/3 p-2">
         <StockList/>
       </div>
     </div>

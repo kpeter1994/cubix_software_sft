@@ -27,9 +27,9 @@ export const usePortfolioStore = defineStore('portfolio',() => {
  }
 
  const getSharesForPortfolio = async (portfolio_id: number) => {
-   return await useApiFetch(`/stock/get-shares-for-portfolio?portfolio_id=${portfolio_id}`,{'method': 'GET'});
-
+   return await useApiFetch(`/stock/get-portfolio-details?portfolio_id=${portfolio_id}`,{'method': 'GET'});
  }
+
 
   return{
     portfolio,
@@ -37,7 +37,7 @@ export const usePortfolioStore = defineStore('portfolio',() => {
     getAllPortfolios,
     createPortfolio,
     addSharesToPortfolio,
-    getSharesForPortfolio
+    getSharesForPortfolio,
   }
 
 });
