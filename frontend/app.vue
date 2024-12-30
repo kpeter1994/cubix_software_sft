@@ -1,11 +1,15 @@
+<script setup lang="ts">
+const authStore = useAuthStore();
+
+const loading = computed(() =>{
+  return authStore.loading;
+})
+</script>
 <template>
-  <div>
     <NuxtLoadingIndicator/>
     <NuxtLayout>
-      <NuxtPage></NuxtPage>
+      <div v-if="loading">loading..</div>
+      <NuxtPage v-if="!loading"></NuxtPage>
     </NuxtLayout>
     <UiVueSonner />
-  </div>
 </template>
-<script setup lang="ts">
-</script>

@@ -2,16 +2,15 @@
 
 const authStore = useAuthStore();
 
-
 const logout = () => {
   authStore.logout();
 
   navigateTo("/login", { replace: true });
 };
+
 </script>
 
 <template>
-  <div>
     <UiNavbar>
       <UiContainer class="flex h-14 items-center justify-between">
         <NuxtLink to="/" class="font-semibold">Portfolio Manager</NuxtLink>
@@ -23,7 +22,6 @@ const logout = () => {
       </UiContainer>
     </UiNavbar>
     <slot />
-  </div>
 </template>
 
 <style scoped></style>

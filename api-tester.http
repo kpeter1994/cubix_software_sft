@@ -16,8 +16,8 @@ POST http://127.0.0.1:5000/auth/login
 Content-Type: application/json
 
 {
-  "username": "smitpetzker34",
-  "password": "123456"
+  "username": "smitpeter777@gmail.com",
+  "password": "123456789"
 }
 
 ### Test verification endpoint
@@ -31,8 +31,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZ
 
 ### Test create-portfolio
 POST http://127.0.0.1:5000/stock/create-portfolio
-Authorization
-Bearer <Token>
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NDkzNTg0fQ.jshG-19sNXKoWKI09baHXzSxTnX0d0En9ZP-6rjJpfk
 
 {
   "name": "portfolio név",
@@ -42,13 +42,14 @@ Bearer <Token>
 ### Test add-share-to portfolio
 
 POST http://127.0.0.1:5000/stock/add-shares-to-portfolio
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTUxNzg0fQ.rXBPqbYvqwF1MZ3OHCvLtjWYdxXQpZqVyLhc19pCZ5U
+Content-Type: application/json
 
-Body:
 {
-  "portfolio_id": 1,
+  "portfolio_id": 20,
   "share_data": [
     {
-      "share_id": "AAPL",
+      "share_id": "TEST",
       "cost_value": 150.25,
       "quantity": 10,
       "date": "2024-12-27"
@@ -57,12 +58,12 @@ Body:
 }
 ### Get user portfolios
 GET http://localhost:5000/stock/get-user-portfolios
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTU4NDkxfQ.AQlKLA4R5CewV4XjcFn2xdvzoYzvaov6EzTsqQkytOc
 
 ### Get shares for portfolio
 
-GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
-Authorization: Bearer <token>
+GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=21
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTU4NDkxfQ.AQlKLA4R5CewV4XjcFn2xdvzoYzvaov6EzTsqQkytOc
 
 
 ### Delete portfolio

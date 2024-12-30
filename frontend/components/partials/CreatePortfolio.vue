@@ -1,5 +1,18 @@
 <script lang="ts" setup>
+
   const dialog = ref(false);
+  const portfolioStore = usePortfolioStore();
+
+
+  const form = reactive({
+    name: "Tester",
+    description: "Tester",
+  });
+
+  const submit = async () => {
+    await portfolioStore.createPortfolio(form.name, form.description);
+    dialog.value = false;
+  };
 
   const closeDialog = (save: boolean) => {
     useToast().toast({
@@ -22,18 +35,18 @@
 
       <UiDialogContent
         class="sm:max-w-[425px]"
-        title="Edit profile"
-        description="Make changes to your profile here. Click save when you're done."
+        title="Új porfolió létrehozása"
+        description="Itt adhatsz meg új portfólió adatokat. Kattints a mentés gombra a változtatások elmentéséhez."
       >
         <template #content>
           <div class="grid gap-4 py-4">
             <div class="grid grid-cols-4 items-center gap-4">
-              <UiLabel for="name" class="text-right"> Name </UiLabel>
-              <UiInput id="name" model-value="Pedro Duarte" class="col-span-3" />
+              <UiLabel for="name" class="text-right"> Portfólió név </UiLabel>
+              <UiInput id="name" v-model="form.name" class="col-span-3" />
             </div>
             <div class="grid grid-cols-4 items-center gap-4">
-              <UiLabel for="username" class="text-right"> Username </UiLabel>
-              <UiInput id="username" model-value="@peduarte" class="col-span-3" />
+              <UiLabel for="username" class="text-right"> Leírás </UiLabel>
+              <UiInput id="username" v-model="form.description" class="col-span-3" />
             </div>
           </div>
         </template>
@@ -46,7 +59,7 @@
               @click="closeDialog(false)"
             >Cancel</UiButton
             >
-            <UiButton type="submit" @click="closeDialog(true)">Save</UiButton>
+            <UiButton type="submit" @click="submit()">Mentés</UiButton>
           </UiDialogFooter>
         </template>
       </UiDialogContent>
