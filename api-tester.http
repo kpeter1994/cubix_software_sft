@@ -16,8 +16,8 @@ POST http://127.0.0.1:5000/auth/login
 Content-Type: application/json
 
 {
-  "username": "smitpeter777@gmail.com",
-  "password": "123456789"
+  "username": "smitpetzker34",
+  "password": "123456"
 }
 
 ### Test verification endpoint
@@ -31,8 +31,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZ
 
 ### Test create-portfolio
 POST http://127.0.0.1:5000/stock/create-portfolio
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NDkzNTg0fQ.jshG-19sNXKoWKI09baHXzSxTnX0d0En9ZP-6rjJpfk
+Authorization
+Bearer <Token>
 
 {
   "name": "portfolio név",
@@ -42,14 +42,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZ
 ### Test add-share-to portfolio
 
 POST http://127.0.0.1:5000/stock/add-shares-to-portfolio
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTUxNzg0fQ.rXBPqbYvqwF1MZ3OHCvLtjWYdxXQpZqVyLhc19pCZ5U
-Content-Type: application/json
 
+Body:
 {
-  "portfolio_id": 20,
+  "portfolio_id": 1,
   "share_data": [
     {
-      "share_id": "TEST",
+      "share_id": "AAPL",
       "cost_value": 150.25,
       "quantity": 10,
       "date": "2024-12-27"
@@ -58,12 +57,12 @@ Content-Type: application/json
 }
 ### Get user portfolios
 GET http://localhost:5000/stock/get-user-portfolios
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTU4NDkxfQ.AQlKLA4R5CewV4XjcFn2xdvzoYzvaov6EzTsqQkytOc
+Authorization: Bearer <token>
 
 ### Get shares for portfolio
 
-GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=21
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTU4NDkxfQ.AQlKLA4R5CewV4XjcFn2xdvzoYzvaov6EzTsqQkytOc
+GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
+Authorization: Bearer <token>
 
 
 ### Delete portfolio
@@ -75,4 +74,19 @@ Authorization: Bearer <token>
 ### Delete share from portfolio
 
 DELETE http://localhost:5000/stock/delete-share-from-portfolio?portfolio_id=3&share_id=4
+Authorization: Bearer <token>
+
+### Részvények összehasonlítás aktuális értékkel
+GET http://localhost:5000/stock/get-portfolio-details?portfolio_id=1
+Authorization: Bearer <token>
+
+
+### Részvény aktuális érték lekérdezése:
+GET http://localhost:5000/stock/current-price?stock_symbol=GOOG
+Authorization: Bearer <token>
+
+### Részvény lekérdezése név vagy symbol alapján:
+GET http://localhost:5000/stock/search?query=tesla
+GET http://localhost:5000/stock/search?query=tsla
+
 Authorization: Bearer <token>
