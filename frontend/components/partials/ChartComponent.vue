@@ -76,13 +76,7 @@
         </UiTabsList>
       </UiTabs>
     </div>
-<!--    TODO make chart skeleton-->
-    <div class="h-[350px] animate-pulse grid grid-cols-12 grid-rows-8" v-if="loading">
-      <div class="col-span-2 row-span-7 flex flex-col justify-between">
-        <div v-for="i in 8" class="w-full h-4 rounded bg-slate-100 animate-pulse"></div>
-      </div>
-
-    </div>
+    <UiPlaceholder v-if="loading" class="h-[350px]" />
     <apexchart v-if="!loading"
                class="grow"
                type="candlestick"

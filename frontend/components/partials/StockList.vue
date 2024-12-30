@@ -1,10 +1,11 @@
 <script lang="ts" setup>
   import AddStock from "~/components/partials/AddStock.vue";
+
   const portfolioStore = usePortfolioStore();
   const route : any = useRoute()
   const shares : any = ref(null);
-
   const id : number = Number(route.params.id);
+  const refresh = ref(false);
 
   const fetchShares = async (id: number) =>{
     const res : any = await portfolioStore.getSharesForPortfolio(id);
@@ -12,6 +13,11 @@
   }
 
   await fetchShares(id);
+
+  watch(refresh, async () => {
+    await fetchShares(id);
+    refresh.value = false;
+  });
 
 
 </script>
@@ -26,11 +32,11 @@
         </p>
       </div>
       <div>
-        <AddStock/>
+        <AddStock v-model="refresh"/>
       </div>
     </div>
 
-    <div class="mt-10 h-[500px] overflow-auto">
+    <div class="mt-10 overflow-auto">
       <UiTable>
         <UiTableHeader>
           <UiTableRow>

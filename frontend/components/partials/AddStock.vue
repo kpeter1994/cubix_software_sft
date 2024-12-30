@@ -1,12 +1,14 @@
 <script lang="ts" setup>
   import dayjs from 'dayjs';
   import { useStockStore } from "~/stores/stock";
+
   const portfolioStore = usePortfolioStore();
   const dialog = ref(false);
   const route : any = useRoute()
 
   const stockStore = useStockStore()
   const selectedShare = computed(() => stockStore.stock);
+  const refresh = defineModel<boolean>();
 
   const closeDialog = (save: boolean) => {
     useToast().toast({
@@ -37,6 +39,7 @@
     }
     ]);
     dialog.value = false;
+    refresh.value = true;
   };
 </script>
 

@@ -7,9 +7,6 @@
     await portfolioStore.getAllPortfolios();
   });
 
-
-
-
 </script>
 
 <template>
