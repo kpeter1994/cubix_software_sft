@@ -4,6 +4,7 @@ export const useAuthStore = defineStore('auth',() => {
   const user = ref(null)
   const token = ref<string | null>(null); // Az auth token
   const isLogedIn = computed(() => !!user.value);
+  const loading = ref(true);
 
   const init = async () => {
     const savedToken = localStorage.getItem('authToken');
@@ -11,6 +12,7 @@ export const useAuthStore = defineStore('auth',() => {
       token.value = savedToken;
       await verifyToken(savedToken);
     }
+    loading.value = false;
   };
 
 
@@ -86,6 +88,7 @@ export const useAuthStore = defineStore('auth',() => {
     user,
     token,
     isLogedIn,
+    loading,
     login,
     register,
     init,

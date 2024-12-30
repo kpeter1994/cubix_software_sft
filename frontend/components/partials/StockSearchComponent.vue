@@ -1,9 +1,10 @@
 <script setup lang="ts">
 
   import InicatorDropdown from "~/components/partials/InicatorDropdown.vue";
+  import { useStockStore } from "~/stores/stock";
 
   const selectedStock = ref(null);
-  const stockStore = useStockStore();
+  const stockStore = useStockStore()
 
   const options = [
     { name: "AAPL", description: "Apple Inc.", id: 1 },

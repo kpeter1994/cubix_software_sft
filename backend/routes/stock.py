@@ -73,11 +73,15 @@ def add_shares_to_portfolio(user):
 
     portfolio_id = request_data.get("portfolio_id")
     share_data = request_data.get("share_data", [])
+    print(share_data)
+    print(portfolio_id)
 
     if not portfolio_id or not share_data:
         return jsonify({"error": "Portfolio ID és share_data szükséges"}), 400
 
     result = PortfolioController.add_shares_to_portfolio(user_id, portfolio_id, share_data)
+
+    print(result)
 
     if "error" in result:
         return jsonify(result), 500

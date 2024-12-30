@@ -29,10 +29,12 @@ package "Frontend (Nuxt)" {
 }
 
 package "Backend (Flask)" {
-    class AuthController {
-        + login(username: string, password: string): Token
-        + register(username: string, password: string): void
-    }
+   class AuthController {
+       + register(username: string, password: string, name: string): dict
+       + login(username: string, password: string): dict
+       + generate_token(user_id: string): Token
+       + verify_token(token: string): dict
+   }
 
     class PortfolioController {
         + getPortfolio(userId: string): Portfolio
@@ -40,27 +42,32 @@ package "Backend (Flask)" {
         + removeStock(userId: string, stockId: string): void
     }
 
-    class Token {
-        + token: string
-        + expiration: Date
-    }
-
     class User {
         + id: string
         + username: string
-        + passwordHash: string
+        + password_hash: string
+        + name: string
+        + create_user(username: string, password: string, name: string): User
+        + get_by_username(username: string): User
+        + check_password(password: string): boolean
     }
 
     class Portfolio {
         + userId: string
         + stocks: Stock[]
     }
+
+    class JWT {
+        + encode(payload: dict, secret: string, algorithm: string): string
+        + decode(token: string, secret: string, algorithms: list): dict
+    }
 }
 
-package "Database (MongoDB)" {
+package "Database (SQLite)" {
     class UserCollection {
         + _id: ObjectId
         + username: string
+        + name: sting
         + passwordHash: string
     }
 
@@ -74,6 +81,8 @@ package "Database (MongoDB)" {
 "LoginComponent" --> "AuthController": uses
 "RegisterComponent" --> "AuthController": uses
 "PortfolioComponent" --> "PortfolioController": uses
+"AuthController" ..> "User": uses
+"AuthController" --> JWT : uses
 "AuthController" --> "UserCollection": accesses
 "PortfolioController" --> "PortfolioCollection": accesses
 
