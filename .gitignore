@@ -2,6 +2,7 @@
 backend/build/
 backend/dist/
 backend/*.egg-info/
+backend/db/
 
 # IDE specifikus fájlok
 backend/.idea/
