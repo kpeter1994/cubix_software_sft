@@ -5,29 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec6014a2-7c9d-4aa7-a341-b3727cbdf14b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../api-tester.http" beforeDir="false" afterPath="$PROJECT_DIR$/../api-tester.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/controller/auth_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/controller/portfolio_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/db/db_config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/middleware/auth.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/model/portfolio.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/model/share.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/model/user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/routes/auth.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/routes/stock.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/portfolio.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/portfolio.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/components/partials/AddStock.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/components/partials/AddStock.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/components/partials/PortfolioList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/components/partials/PortfolioList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/components/partials/StockList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/components/partials/StockList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/pages/portfolio/[id].vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pages/portfolio/[id].vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/stores/portfolio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/stores/portfolio.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/stores/stock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/stores/stock.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

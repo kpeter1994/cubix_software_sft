@@ -58,28 +58,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiZ
 }
 ### Get user portfolios
 GET http://localhost:5000/stock/get-user-portfolios
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NzM0NzMyfQ.5WitNIgugIPJrY0WULAlN32TCnYX_hieWqpYcC2QcSU
 
 ### Get shares for portfolio
 
-GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=1
-Authorization: Bearer <token>
+GET http://localhost:5000/stock/get-shares-for-portfolio?portfolio_id=30
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NzM0NzMyfQ.5WitNIgugIPJrY0WULAlN32TCnYX_hieWqpYcC2QcSU
 
 
 ### Delete portfolio
-
-DELETE http://localhost:5000/stock/delete-portfolio?portfolio_id=1
-
-Authorization: Bearer <token>
+DELETE http://localhost:5000/stock/delete-portfolio?portfolio_id=30
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NzM0NzMyfQ.5WitNIgugIPJrY0WULAlN32TCnYX_hieWqpYcC2QcSU
 
 ### Delete share from portfolio
-
 DELETE http://localhost:5000/stock/delete-share-from-portfolio?portfolio_id=3&share_id=4
 Authorization: Bearer <token>
 
 ### Részvények összehasonlítás aktuális értékkel
-GET http://localhost:5000/stock/get-portfolio-details?portfolio_id=26
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NTkyNDU4fQ.lMcwNWH-E5fRcX5GV9UUY9aqEDj0rCrtBAuqHCNHJV4
+GET http://localhost:5000/stock/get-portfolio-details?portfolio_id=24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZXhwIjoxNzM1NzMzMjE5fQ.BuycZSpPwAlF8CbbKa-h7ud9OrIGVQDgmkkgrOSZ0xQ
 
 
 ### Részvény aktuális érték lekérdezése:

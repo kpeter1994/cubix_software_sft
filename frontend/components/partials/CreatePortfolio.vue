@@ -5,13 +5,15 @@
 
 
   const form = reactive({
-    name: "Tester",
-    description: "Tester",
+    name: "",
+    description: "",
   });
 
   const submit = async () => {
     await portfolioStore.createPortfolio(form.name, form.description);
     dialog.value = false;
+    form.name = "";
+    form.description = "";
   };
 
   const closeDialog = (save: boolean) => {

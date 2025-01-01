@@ -6,10 +6,12 @@
   const shares : any = ref(null);
   const id : number = Number(route.params.id);
   const refresh = ref(false);
+  const portfolioName = defineModel()
 
   const fetchShares = async (id: number) =>{
    try {
      const res : any = await portfolioStore.getSharesForPortfolio(id);
+     portfolioName.value = res.portfolio_name;
      const { error } = res;
      if (error){
        useSonner.error(error);
@@ -40,9 +42,9 @@
   <div class="overflow-y-auto">
     <div class="grid grid-cols-1 gap-5 md:flex md:items-center md:justify-between">
       <div class="flex flex-col">
-        <h1 class="font-semibold">Users</h1>
+        <h1 class="font-semibold">Részvények</h1>
         <p class="text-sm text-muted-foreground">
-          A list of all the users in your account including their name, title, email and role.
+          A porfolióban található részvények listája
         </p>
       </div>
       <div>

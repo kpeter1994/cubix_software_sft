@@ -1,13 +1,17 @@
 <script lang="ts" setup>
   import CreatePortfolio from "~/components/partials/CreatePortfolio.vue";
 
+  const portfolioList : any = ref([]);
+
   const portfolioStore = usePortfolioStore();
 
   onBeforeMount(async () => {
-    await portfolioStore.getAllPortfolios();
+    const res : any = await portfolioStore.getAllPortfolios();
+    if (!res.error){
+      portfolioList.value = computed(() => portfolioStore.allPortfolio.portfolios);
+    }
+
   });
-
-
 
 
 </script>
