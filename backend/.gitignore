@@ -1,1 +1,5 @@
 db/portfolio.db
+
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,7 @@
+# Python build fájlok a backend mappában
+backend/build/
+backend/dist/
+backend/*.egg-info/
+
+# IDE specifikus fájlok
+backend/.idea/
