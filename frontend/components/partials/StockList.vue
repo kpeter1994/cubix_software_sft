@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import AddStock from "~/components/partials/AddStock.vue";
+  import DeleteShare from "~/components/partials/DeleteShare.vue";
 
   const portfolioStore = usePortfolioStore();
   const route : any = useRoute()
@@ -66,7 +67,7 @@
           </UiTableRow>
         </UiTableHeader>
         <UiTableBody v-if="shares">
-          <template  v-for="share in shares" :key="share.share_id">
+          <template  v-for="share in shares" :key="share.id">
             <UiTableRow>
               <UiTableCell class="pl-0">
                 <div class="flex flex-col">
@@ -80,7 +81,7 @@
               <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{share.quantity * share.current_price.toFixed(0) }}</UiTableCell>
 
               <UiTableCell class="pl-0 text-right">
-                <UiButton size="sm" variant="linkHover2">Edit</UiButton>
+                <DeleteShare v-model="refresh" :shareId="share.id"/>
               </UiTableCell>
             </UiTableRow>
           </template>

@@ -20,6 +20,10 @@ export const usePortfolioStore = defineStore('portfolio',() => {
     await getAllPortfolios();
   }
 
+  const deleteShareFromPortfolio= async (portfolio_id: number, share_id: number) => {
+    await useApiFetch(`/stock/delete-share-from-portfolio?portfolio_id=${portfolio_id}&share_id=${share_id}`,{'method': 'DELETE' });
+  }
+
  const createPortfolio = async (name: string, description: string) => {
     portfolio.name = name;
     portfolio.description = description;
@@ -46,6 +50,7 @@ export const usePortfolioStore = defineStore('portfolio',() => {
     addSharesToPortfolio,
     getSharesForPortfolio,
     deletePortfolio,
+    deleteShareFromPortfolio,
   }
 
 });

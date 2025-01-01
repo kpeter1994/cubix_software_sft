@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec6014a2-7c9d-4aa7-a341-b3727cbdf14b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../api-tester.http" beforeDir="false" afterPath="$PROJECT_DIR$/../api-tester.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/portfolio.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/portfolio.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/components/partials/PortfolioList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/components/partials/PortfolioList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/components/partials/StockList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/components/partials/StockList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/pages/portfolio/[id].vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/pages/portfolio/[id].vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/stores/portfolio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/stores/portfolio.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
