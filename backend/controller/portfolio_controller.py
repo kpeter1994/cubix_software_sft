@@ -5,7 +5,6 @@ from model.company import Company
 from yfinance import Ticker
 from peewee import DoesNotExist
 
-
 class PortfolioController:
     @staticmethod
     def create_portfolio(user_id, name, description=None):
@@ -98,39 +97,50 @@ class PortfolioController:
 
     @staticmethod
     def get_portfolio_details(portfolio_id):
-        portfolio = Portfolio.get_by_id(portfolio_id)
-        if not portfolio:
-            return {"error": "A portfólió nem található"}
+        try:
+            # Portfólió lekérdezése
+            portfolio = Portfolio.get_or_none(Portfolio.id == portfolio_id)
+            if not portfolio:
+                return {"error": "A portfólió nem található"}
 
-        shares = Share.get_by_portfolio_id(portfolio_id)
-        if not shares:
-            return {"error": "Nincsenek részvények ebben a portfólióban"}
+            # Részvények lekérdezése a portfólióhoz
+            shares = Share.select().where(Share.portfolio_id == portfolio_id)
+            if shares.count() == 0:
+                return {"error": "Nincsenek részvények ebben a portfólióban"}
 
-        portfolio_details = []
-        for share in shares:
-            try:
-                stock = Ticker(share.share_id)  # Részvény azonosító (pl. "AAPL")
-                current_price = stock.history(period="1d")["Close"].iloc[-1]  # Aktuális ár
-                cost_value = share.cost_value
-                quantity = share.quantity
+            portfolio_details = []
+            for share in shares:
+                try:
+                    stock = Ticker(share.share_id)
+                    current_price = stock.history(period="1d")["Close"].iloc[-1]
+                    cost_value = share.cost_value
+                    quantity = share.quantity
 
-                change = ((float(current_price) - float(cost_value)) / float(cost_value)) * 100
+                    change = ((float(current_price) - float(cost_value)) / float(cost_value)) * 100
 
-                portfolio_details.append({
-                    "share_id": share.share_id,
-                    "cost_value": cost_value,
-                    "current_price": current_price,
-                    "change_percentage": round(change, 2),
-                    "quantity": quantity
-                })
-            except Exception as e:
-                return {"error": f"Részvény adatainak lekérése sikertelen: {str(e)}"}
+                    portfolio_details.append({
+                        "id": share.id,
+                        "share_id": share.share_id,
+                        "cost_value": cost_value,
+                        "current_price": float(current_price),
+                        "change_percentage": round(change, 2),
+                        "quantity": quantity
+                    })
+                except Exception as e:
+                    # Hibakezelés adott részvényre
+                    portfolio_details.append({
+                        "share_id": share.share_id,
+                        "error": f"Hiba a részvény adatainak lekérésekor: {str(e)}"
+                    })
 
-        return {
-            "portfolio_name": portfolio.name,
-            "portfolio_id": portfolio.id,
-            "details": portfolio_details
-        }
+            return {
+                "portfolio_name": portfolio.name,
+                "portfolio_id": portfolio.id,
+                "details": portfolio_details
+            }
+
+        except Exception as e:
+            return {"error": str(e)}
 
     @staticmethod
     def get_current_stock_price(stock_symbol):
