@@ -60,10 +60,12 @@ def get_user_portfolios(user):
     user_id = user["user_id"]
     portfolios = PortfolioController.get_user_portfolios(user_id)
 
+    # Ha nincs portfólió, térjen vissza üres tömbbel
     if not portfolios:
-        return jsonify({"error": "Nincsenek portfóliók a felhasználóhoz"}), 404
+        return jsonify({"portfolios": []}), 200
 
     return jsonify({"portfolios": portfolios}), 200
+
 
 @stock.route("/add-shares-to-portfolio", methods=["POST"])
 @auth_required
@@ -144,20 +146,23 @@ def delete_share_from_portfolio(user):
 
     return jsonify(result), 200
 
+from peewee import DoesNotExist
+
 @stock.route("/get-portfolio-details", methods=["GET"])
 @auth_required
 def get_portfolio_details(user):
     portfolio_id = request.args.get("portfolio_id")
-
     if not portfolio_id:
         return jsonify({"error": "Portfolio ID szükséges"}), 400
 
-    result = PortfolioController.get_portfolio_details(portfolio_id)
+    try:
+        portfolio_details = PortfolioController.get_portfolio_details(portfolio_id)
+    except DoesNotExist:
+        # Ha a portfólió nem létezik, üres objektumot adunk vissza
+        return jsonify({"portfolio_details": {}}), 200
 
-    if "error" in result:
-        return jsonify(result), 404
+    return jsonify({"portfolio_details": portfolio_details}), 200
 
-    return jsonify(result), 200
 
 @stock.route("/current-price", methods=["GET"])
 @auth_required
