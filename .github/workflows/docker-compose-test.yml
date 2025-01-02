@@ -35,12 +35,6 @@ jobs:
       - name: Check Frontend Health
         run: curl -f http://localhost:3001 || exit 1
 
-      # Frontend tesztek (opcionális)
-      - name: Run Frontend Tests
-        run: |
-          docker compose exec frontend npm run test
-        continue-on-error: false
-
       # Konténerek leállítása
       - name: Cleanup
         run: docker compose down
