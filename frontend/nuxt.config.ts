@@ -5,9 +5,9 @@ export default defineNuxtConfig({
       backendUrl: process.env.BACKEND_URL || 'http://127.0.0.1:5000',
     },
   },
-  dev: process.env.NODE_ENV !== 'production',
+  // dev: process.env.NODE_ENV !== 'production',
   compatibilityDate: "2024-11-01",
-  devtools: { enabled: true },
+  // devtools: { enabled: true },
 
   modules: [
     "@nuxtjs/tailwindcss",
