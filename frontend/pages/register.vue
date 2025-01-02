@@ -27,13 +27,11 @@
     try {
       const res : any = await authStore.register({'name': values.name, 'username': values.username, 'password': values.password });
 
-      const { error } = res
-
-      if (error) {
-        useSonner.error(error );
-        return
-      }
-      useSonner.success(res.message);
+      // if (res.error) {
+      //   useSonner.error(res.error);
+      //   return
+      // }
+      // useSonner.success(res.message);
 
       await navigateTo("/", { replace: true });
     } catch (error : any) {
