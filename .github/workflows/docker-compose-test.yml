@@ -1,0 +1,38 @@
+name: Docker Compose Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-docker-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Ellenőrizd ki a repository-t
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Telepítsd a Docker-t és Docker Compose-t
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Validáld a Docker Compose fájlt
+      - name: Validate Docker Compose file
+        run: docker-compose config
+
+      # Indítsd el a konténereket teszteléshez
+      - name: Start Docker Compose
+        run: docker-compose up -d
+
+      # Ellenőrizd a konténerek állapotát
+      - name: Check containers health
+        run: docker-compose ps
+
+      # Állítsd le a konténereket és takarítsd fel
+      - name: Cleanup
+        run: docker-compose down
