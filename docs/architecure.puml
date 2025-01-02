@@ -10,7 +10,7 @@ package "Frontend (Nuxt)" {
     class RegisterComponent {
         + username: string
         + password: string
-        + confirmPassword: string
+        + name: string
         + register(): void
     }
 

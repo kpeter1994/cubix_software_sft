@@ -6,7 +6,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - BACKEND_URL=http://backend:5000
+      - BACKEND_URL=http://localhost:5000
     depends_on:
       - backend
     networks:
@@ -18,10 +18,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    environment:
-      - DATABASE_PATH=/data/portfolio.db
-    volumes:
-      - ./data:/data  # Lokális data mappa mountolása a backend konténerhez
     networks:
       - app-network
 

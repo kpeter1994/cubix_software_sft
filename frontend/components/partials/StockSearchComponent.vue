@@ -1,12 +1,7 @@
 <script setup lang="ts">
 
-  import InicatorDropdown from "~/components/partials/InicatorDropdown.vue";
-
   const selectedStock = ref('AAPL');
   const stockStore = useStockStore();
-
-
-
 
 
 </script>
@@ -21,7 +16,6 @@
       <UiButton @click="stockStore.setStock(selectedStock)">Keresés</UiButton>
     </div>
 
-    <InicatorDropdown/>
   </div>
 </template>
 

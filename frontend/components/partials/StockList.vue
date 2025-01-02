@@ -12,13 +12,13 @@
   const fetchShares = async (id: number) =>{
    try {
      const res : any = await portfolioStore.getSharesForPortfolio(id);
-     portfolioName.value = res.portfolio_name;
+     portfolioName.value = res.portfolio_details.portfolio_name;
      const { error } = res;
      if (error){
        useSonner.error(error);
        shares.value = [];
      }
-     shares.value = res.details
+     shares.value = res.portfolio_details.details
    }catch (e){
      useToast().toast({
        title: "Error",
@@ -35,6 +35,8 @@
     await fetchShares(id);
     refresh.value = false;
   })
+
+
 
 
 </script>
@@ -77,8 +79,8 @@
               <UiTableCell class="pl-0 text-muted-foreground lg:table-cell">{{share.cost_value }}</UiTableCell>
               <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{share.quantity }}</UiTableCell>
               <UiTableCell class="pl-0 text-muted-foreground md:table-cell font-semibold" :class="share.change_percentage > 0 ? 'text-green-500' : 'text-red-500'">{{share.change_percentage.toFixed(1) }}%</UiTableCell>
-              <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{share.current_price.toFixed(1) }}</UiTableCell>
-              <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{share.quantity * share.current_price.toFixed(0) }}</UiTableCell>
+              <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{share.current_price.toFixed(2) }}</UiTableCell>
+              <UiTableCell class="pl-0 text-muted-foreground md:table-cell">{{ (share.quantity * share.current_price).toFixed(2) }}</UiTableCell>
 
               <UiTableCell class="pl-0 text-right">
                 <DeleteShare v-model="refresh" :shareId="share.id"/>
