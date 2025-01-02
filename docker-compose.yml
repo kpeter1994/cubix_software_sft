@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3000"
+    environment:
+      - BACKEND_URL=${BACKEND_URL}
     depends_on:
       - backend
     networks:
