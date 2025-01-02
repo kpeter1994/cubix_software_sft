@@ -18,6 +18,7 @@ dependencies = [  # Függőségek listázása
     "peewee",
     "flask-cors",
     "yfinance",
+    "pytest"
 ]
 
 [tool.setuptools]

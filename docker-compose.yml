@@ -1,14 +1,24 @@
 services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8081:81"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app-network
+
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "3001:3000"
+      args:
+        BACKEND_URL: ${BACKEND_URL}
     environment:
-      - BACKEND_URL=http://localhost:5000
-    depends_on:
-      - backend
+      - BACKEND_URL=${BACKEND_URL}
     networks:
       - app-network
 
@@ -16,8 +26,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
     networks:
       - app-network
 
