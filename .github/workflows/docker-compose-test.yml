@@ -33,7 +33,7 @@ jobs:
 
       # Frontend állapotának ellenőrzése
       - name: Check Frontend Health
-        run: curl -f http://localhost:3000 || exit 1
+        run: curl -f http://localhost:3001 || exit 1
 
       # Frontend tesztek (opcionális)
       - name: Run Frontend Tests
