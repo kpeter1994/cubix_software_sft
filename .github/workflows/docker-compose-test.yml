@@ -17,26 +17,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Docker Compose elindítása
+      # Docker telepítése és konfigurációja
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
+      # Docker Compose indítása
       - name: Start Docker Compose
         run: docker-compose up -d
 
       # Backend tesztelése
       - name: Test Backend
         run: |
-          docker-compose exec backend pytest  # Például a backend tesztjeihez
+          docker-compose exec backend pytest
         continue-on-error: false
 
       # Frontend állapotának ellenőrzése
       - name: Check Frontend Health
         run: curl -f http://localhost:3000 || exit 1
 
-      # Opcionális: Frontend tesztek (például Cypress vagy más tesztkeret)
+      # Frontend tesztek (opcionális)
       - name: Run Frontend Tests
         run: |
           docker-compose exec frontend npm run test
         continue-on-error: false
 
-      # Docker Compose konténerek leállítása
+      # Konténerek leállítása
       - name: Cleanup
         run: docker-compose down
