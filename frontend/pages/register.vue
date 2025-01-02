@@ -25,17 +25,19 @@
 
   const submit = handleSubmit(async (values) => {
     try {
-      await authStore.register({'name': values.name, 'username': values.username, 'password': values.password });
+      const res : any = await authStore.register({'name': values.name, 'username': values.username, 'password': values.password });
 
-      useSonner.success("Account created!", {
-        description: "You have successfully created an account.",
-      });
+      const { error } = res
+
+      if (error) {
+        useSonner.error(error );
+        return
+      }
+      useSonner.success(res.message);
 
       await navigateTo("/", { replace: true });
-    } catch (error) {
-      useSonner.error("Failed to create account!", {
-        description: "An error occurred while creating your account.",
-      });
+    } catch (error : any) {
+      useSonner.error(error);
     }
   });
 </script>

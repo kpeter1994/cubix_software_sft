@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const config = useRuntimeConfig();
-console.log(config.public.backendUrl);
+
 const loading = computed(() =>{
   return authStore.loading;
 })
