@@ -24,19 +24,13 @@
   });
 
   const submit = handleSubmit(async (values) => {
-    try {
+
       const res : any = await authStore.register({'name': values.name, 'username': values.username, 'password': values.password });
-     if (res.message) {
-        useSonner.success(res.message);
-      }
-     if (!res.message) {
-        useSonner.error(res.error);
-        return;
-      }
+
+      useSonner.success('Sikeres regisztráció!');
+
       await navigateTo("/", { replace: true });
-    } catch (error : any) {
-      useSonner.error(error);
-    }
+
   });
 </script>
 
